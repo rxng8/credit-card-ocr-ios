@@ -28,13 +28,16 @@ class ViewController: UIViewController {
     
     // MARK: Instance Variables
     // Holds the results at any time
-    private var result: Result?
+    private var detectorResult: Result?
     private var initialBottomSpace: CGFloat = 0.0
     private var previousInferenceTimeMs: TimeInterval = Date.distantPast.timeIntervalSince1970 * 1000
     
     // MARK: Handles all data preprocessing and makes calls to run inference through the `Interpreter`.
     private var modelDataHandler: ModelDataHandler? =
         ModelDataHandler(modelFileInfo: MobileNetSSD.modelInfo, labelsFileInfo: MobileNetSSD.labelsInfo)
+    
+    // MARK: OCR Data handler
+    private var ocrDataHandler: OCRDataHandler? = OCRDataHandler(modelFileInfo: OCRModel.modelInfo)
     
     // Others
     let captureSession = AVCaptureSession()
@@ -353,9 +356,9 @@ extension ViewController {
         
         previousInferenceTimeMs = currentTimeMs
         //        print("[runModel] Start inference at \(currentTimeMs).")
-        result = self.modelDataHandler?.runModel(onFrame: pixelBuffer)
+        detectorResult = self.modelDataHandler?.runModel(onFrame: pixelBuffer)
         
-        guard let displayResult = result else {
+        guard let displayResult = detectorResult else {
             return
         }
         
@@ -365,7 +368,7 @@ extension ViewController {
         DispatchQueue.main.async {
             
             var inferenceTime: Double = 0
-            if let resultInferenceTime = self.result?.inferenceTime {
+            if let resultInferenceTime = self.detectorResult?.inferenceTime {
                 inferenceTime = resultInferenceTime
             }
             
@@ -374,10 +377,10 @@ extension ViewController {
             
 //            print("[Result] \(self.result!)")
             
-            if self.result != nil && self.result!.inferences.count > 0 {
+            if self.detectorResult != nil && self.detectorResult!.inferences.count > 0 {
 //                print("[Result] \(self.result!.inferences[0].rect)")
                 
-                let meowRect = self.result!.inferences[0].rect
+                let meowRect = self.detectorResult!.inferences[0].rect
                 
                 // Translates bounding box rect to current view.
                 var convertedRect = CGRect(x: meowRect.minX, y: meowRect.minY, width: meowRect.width * self.overlayView.bounds.size.width / CGFloat(width), height: meowRect.height * self.overlayView.bounds.size.height / CGFloat(height))
@@ -386,7 +389,7 @@ extension ViewController {
                 let newciimage = CIImage(cvImageBuffer: croppedPixelBuffer!)
                 
                 // Process crnn model here!
-                
+                let ocrResult = self.ocrDataHandler?.runModel(onFrame: croppedPixelBuffer!)
                 
                 // Debug
                 

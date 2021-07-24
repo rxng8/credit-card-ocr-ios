@@ -7,6 +7,10 @@ target 'credit-card-ocr-demo' do
 
   # Pods for credit-card-ocr-demo
   pod 'TensorFlowLiteSwift', '~> 2.0.0'
+  # Require for pure tensorflow ops
+  # https://www.tensorflow.org/lite/guide/ops_select
+  # Remember to add linker flag
+  pod 'TensorFlowLiteSelectTfOps', '~> 0.0.1-nightly'
   
   target 'credit-card-ocr-demoTests' do
     inherit! :search_paths

@@ -1,20 +1,24 @@
 PODS:
   - TensorFlowLiteC (2.0.0)
+  - TensorFlowLiteSelectTfOps (0.0.1-nightly.20210724)
   - TensorFlowLiteSwift (2.0.0):
     - TensorFlowLiteC (= 2.0.0)
 
 DEPENDENCIES:
+  - TensorFlowLiteSelectTfOps (~> 0.0.1-nightly)
   - TensorFlowLiteSwift (~> 2.0.0)
 
 SPEC REPOS:
   trunk:
     - TensorFlowLiteC
+    - TensorFlowLiteSelectTfOps
     - TensorFlowLiteSwift
 
 SPEC CHECKSUMS:
   TensorFlowLiteC: d22a94f77938edb2dfcb9674937f9548a3fcdb23
+  TensorFlowLiteSelectTfOps: e5d62d4b31d9531049751a0c3835cbd428d2bc35
   TensorFlowLiteSwift: dcd91bd74091f8e3e1b9b28a7d789f635dc26bea
 
-PODFILE CHECKSUM: 9ac487fc4ab8ed7dfd9b07422db7c9b79b3908c9
+PODFILE CHECKSUM: 581213191eccd2380e784922ae9221991135b3f4
 
 COCOAPODS: 1.10.1
