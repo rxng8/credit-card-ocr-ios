@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		214EF4CD4FEB4B739FCCD849 /* Pods_credit_card_ocr_demoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76F1B6317FE121FB8B6517E5 /* Pods_credit_card_ocr_demoTests.framework */; };
+		934F0006D6F56980DA5A7080 /* Pods_credit_card_ocr_demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB212E91D3DEBB3EF579E53 /* Pods_credit_card_ocr_demo.framework */; };
+		B7F020ADA08BB5F9A38BE054 /* Pods_credit_card_ocr_demo_credit_card_ocr_demoUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10F1E840C2F0D4315D4AF417 /* Pods_credit_card_ocr_demo_credit_card_ocr_demoUITests.framework */; };
 		C46F23C726ABC0C500654E78 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46F23C626ABC0C500654E78 /* AppDelegate.swift */; };
 		C46F23C926ABC0C500654E78 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46F23C826ABC0C500654E78 /* SceneDelegate.swift */; };
 		C46F23CB26ABC0C500654E78 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46F23CA26ABC0C500654E78 /* ViewController.swift */; };
@@ -15,6 +18,21 @@
 		C46F23D326ABC0C700654E78 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C46F23D126ABC0C700654E78 /* LaunchScreen.storyboard */; };
 		C46F23DE26ABC0C700654E78 /* credit_card_ocr_demoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46F23DD26ABC0C700654E78 /* credit_card_ocr_demoTests.swift */; };
 		C46F23E926ABC0C700654E78 /* credit_card_ocr_demoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46F23E826ABC0C700654E78 /* credit_card_ocr_demoUITests.swift */; };
+		C46F23F826ABC24200654E78 /* ModelDataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46F23F726ABC24200654E78 /* ModelDataHandler.swift */; };
+		C46F23FD26ABC24D00654E78 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46F23FA26ABC24D00654E78 /* UIColorExtension.swift */; };
+		C46F23FE26ABC24D00654E78 /* CVPixelBufferExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46F23FB26ABC24D00654E78 /* CVPixelBufferExtension.swift */; };
+		C46F23FF26ABC24D00654E78 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46F23FC26ABC24D00654E78 /* StringExtension.swift */; };
+		C46F240926ABC2BC00654E78 /* label.txt in Resources */ = {isa = PBXBuildFile; fileRef = C46F240226ABC2BC00654E78 /* label.txt */; };
+		C46F240A26ABC2BC00654E78 /* detect_metadata.tflite in Resources */ = {isa = PBXBuildFile; fileRef = C46F240326ABC2BC00654E78 /* detect_metadata.tflite */; };
+		C46F240B26ABC2BC00654E78 /* mobilenet_quant_v1_224.tflite in Resources */ = {isa = PBXBuildFile; fileRef = C46F240426ABC2BC00654E78 /* mobilenet_quant_v1_224.tflite */; };
+		C46F240C26ABC2BC00654E78 /* model_det0.tflite in Resources */ = {isa = PBXBuildFile; fileRef = C46F240526ABC2BC00654E78 /* model_det0.tflite */; };
+		C46F240D26ABC2BC00654E78 /* labelmap.txt in Resources */ = {isa = PBXBuildFile; fileRef = C46F240626ABC2BC00654E78 /* labelmap.txt */; };
+		C46F240E26ABC2BC00654E78 /* detect.tflite in Resources */ = {isa = PBXBuildFile; fileRef = C46F240726ABC2BC00654E78 /* detect.tflite */; };
+		C46F240F26ABC2BC00654E78 /* model.tflite in Resources */ = {isa = PBXBuildFile; fileRef = C46F240826ABC2BC00654E78 /* model.tflite */; };
+		C46F241326ABCA8000654E78 /* OverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46F241226ABCA8000654E78 /* OverlayView.swift */; };
+		C46F241526ABCCAB00654E78 /* PreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46F241426ABCCAB00654E78 /* PreviewView.swift */; };
+		C46F241726AC06DA00654E78 /* lite-model_keras-ocr_float16_2.tflite in Resources */ = {isa = PBXBuildFile; fileRef = C46F241626AC06DA00654E78 /* lite-model_keras-ocr_float16_2.tflite */; };
+		C46F241926AC06FF00654E78 /* OCRDataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46F241826AC06FF00654E78 /* OCRDataHandler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +53,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		019DC662727D5C662282A20B /* Pods-credit-card-ocr-demo-credit-card-ocr-demoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-credit-card-ocr-demo-credit-card-ocr-demoUITests.release.xcconfig"; path = "Target Support Files/Pods-credit-card-ocr-demo-credit-card-ocr-demoUITests/Pods-credit-card-ocr-demo-credit-card-ocr-demoUITests.release.xcconfig"; sourceTree = "<group>"; };
+		10F1E840C2F0D4315D4AF417 /* Pods_credit_card_ocr_demo_credit_card_ocr_demoUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_credit_card_ocr_demo_credit_card_ocr_demoUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		114A11FC6E8399440AD4E1D1 /* Pods-credit-card-ocr-demoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-credit-card-ocr-demoTests.release.xcconfig"; path = "Target Support Files/Pods-credit-card-ocr-demoTests/Pods-credit-card-ocr-demoTests.release.xcconfig"; sourceTree = "<group>"; };
+		585606979D458FF0E59A2104 /* Pods-credit-card-ocr-demo-credit-card-ocr-demoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-credit-card-ocr-demo-credit-card-ocr-demoUITests.debug.xcconfig"; path = "Target Support Files/Pods-credit-card-ocr-demo-credit-card-ocr-demoUITests/Pods-credit-card-ocr-demo-credit-card-ocr-demoUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		6852CD578E56D94BE2479E90 /* Pods-credit-card-ocr-demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-credit-card-ocr-demo.debug.xcconfig"; path = "Target Support Files/Pods-credit-card-ocr-demo/Pods-credit-card-ocr-demo.debug.xcconfig"; sourceTree = "<group>"; };
+		76F1B6317FE121FB8B6517E5 /* Pods_credit_card_ocr_demoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_credit_card_ocr_demoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B4947BC5B9709ABE6352A028 /* Pods-credit-card-ocr-demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-credit-card-ocr-demo.release.xcconfig"; path = "Target Support Files/Pods-credit-card-ocr-demo/Pods-credit-card-ocr-demo.release.xcconfig"; sourceTree = "<group>"; };
 		C46F23C326ABC0C500654E78 /* credit-card-ocr-demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "credit-card-ocr-demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C46F23C626ABC0C500654E78 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C46F23C826ABC0C500654E78 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -49,6 +74,23 @@
 		C46F23E426ABC0C700654E78 /* credit-card-ocr-demoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "credit-card-ocr-demoUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C46F23E826ABC0C700654E78 /* credit_card_ocr_demoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = credit_card_ocr_demoUITests.swift; sourceTree = "<group>"; };
 		C46F23EA26ABC0C700654E78 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C46F23F726ABC24200654E78 /* ModelDataHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelDataHandler.swift; sourceTree = "<group>"; };
+		C46F23FA26ABC24D00654E78 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		C46F23FB26ABC24D00654E78 /* CVPixelBufferExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CVPixelBufferExtension.swift; sourceTree = "<group>"; };
+		C46F23FC26ABC24D00654E78 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		C46F240226ABC2BC00654E78 /* label.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = label.txt; sourceTree = "<group>"; };
+		C46F240326ABC2BC00654E78 /* detect_metadata.tflite */ = {isa = PBXFileReference; lastKnownFileType = file; path = detect_metadata.tflite; sourceTree = "<group>"; };
+		C46F240426ABC2BC00654E78 /* mobilenet_quant_v1_224.tflite */ = {isa = PBXFileReference; lastKnownFileType = file; path = mobilenet_quant_v1_224.tflite; sourceTree = "<group>"; };
+		C46F240526ABC2BC00654E78 /* model_det0.tflite */ = {isa = PBXFileReference; lastKnownFileType = file; path = model_det0.tflite; sourceTree = "<group>"; };
+		C46F240626ABC2BC00654E78 /* labelmap.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = labelmap.txt; sourceTree = "<group>"; };
+		C46F240726ABC2BC00654E78 /* detect.tflite */ = {isa = PBXFileReference; lastKnownFileType = file; path = detect.tflite; sourceTree = "<group>"; };
+		C46F240826ABC2BC00654E78 /* model.tflite */ = {isa = PBXFileReference; lastKnownFileType = file; path = model.tflite; sourceTree = "<group>"; };
+		C46F241226ABCA8000654E78 /* OverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayView.swift; sourceTree = "<group>"; };
+		C46F241426ABCCAB00654E78 /* PreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewView.swift; sourceTree = "<group>"; };
+		C46F241626AC06DA00654E78 /* lite-model_keras-ocr_float16_2.tflite */ = {isa = PBXFileReference; lastKnownFileType = file; path = "lite-model_keras-ocr_float16_2.tflite"; sourceTree = "<group>"; };
+		C46F241826AC06FF00654E78 /* OCRDataHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCRDataHandler.swift; sourceTree = "<group>"; };
+		DB30DF5D4B177FC6FEA220C2 /* Pods-credit-card-ocr-demoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-credit-card-ocr-demoTests.debug.xcconfig"; path = "Target Support Files/Pods-credit-card-ocr-demoTests/Pods-credit-card-ocr-demoTests.debug.xcconfig"; sourceTree = "<group>"; };
+		EEB212E91D3DEBB3EF579E53 /* Pods_credit_card_ocr_demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_credit_card_ocr_demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +98,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				934F0006D6F56980DA5A7080 /* Pods_credit_card_ocr_demo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +106,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				214EF4CD4FEB4B739FCCD849 /* Pods_credit_card_ocr_demoTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,12 +114,36 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7F020ADA08BB5F9A38BE054 /* Pods_credit_card_ocr_demo_credit_card_ocr_demoUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3CE67A393C9C5E0533B19E7C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EEB212E91D3DEBB3EF579E53 /* Pods_credit_card_ocr_demo.framework */,
+				10F1E840C2F0D4315D4AF417 /* Pods_credit_card_ocr_demo_credit_card_ocr_demoUITests.framework */,
+				76F1B6317FE121FB8B6517E5 /* Pods_credit_card_ocr_demoTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AA50E11FFAA428F617AE2860 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				6852CD578E56D94BE2479E90 /* Pods-credit-card-ocr-demo.debug.xcconfig */,
+				B4947BC5B9709ABE6352A028 /* Pods-credit-card-ocr-demo.release.xcconfig */,
+				585606979D458FF0E59A2104 /* Pods-credit-card-ocr-demo-credit-card-ocr-demoUITests.debug.xcconfig */,
+				019DC662727D5C662282A20B /* Pods-credit-card-ocr-demo-credit-card-ocr-demoUITests.release.xcconfig */,
+				DB30DF5D4B177FC6FEA220C2 /* Pods-credit-card-ocr-demoTests.debug.xcconfig */,
+				114A11FC6E8399440AD4E1D1 /* Pods-credit-card-ocr-demoTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		C46F23BA26ABC0C500654E78 = {
 			isa = PBXGroup;
 			children = (
@@ -83,6 +151,8 @@
 				C46F23DC26ABC0C700654E78 /* credit-card-ocr-demoTests */,
 				C46F23E726ABC0C700654E78 /* credit-card-ocr-demoUITests */,
 				C46F23C426ABC0C500654E78 /* Products */,
+				AA50E11FFAA428F617AE2860 /* Pods */,
+				3CE67A393C9C5E0533B19E7C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -103,6 +173,11 @@
 				C46F23C826ABC0C500654E78 /* SceneDelegate.swift */,
 				C46F23CA26ABC0C500654E78 /* ViewController.swift */,
 				C46F23CC26ABC0C500654E78 /* Main.storyboard */,
+				C46F241226ABCA8000654E78 /* OverlayView.swift */,
+				C46F241426ABCCAB00654E78 /* PreviewView.swift */,
+				C46F23F626ABC24200654E78 /* Data Handler */,
+				C46F23F926ABC24D00654E78 /* Extensions */,
+				C46F240126ABC2BC00654E78 /* Model */,
 				C46F23CF26ABC0C700654E78 /* Assets.xcassets */,
 				C46F23D126ABC0C700654E78 /* LaunchScreen.storyboard */,
 				C46F23D426ABC0C700654E78 /* Info.plist */,
@@ -128,6 +203,41 @@
 			path = "credit-card-ocr-demoUITests";
 			sourceTree = "<group>";
 		};
+		C46F23F626ABC24200654E78 /* Data Handler */ = {
+			isa = PBXGroup;
+			children = (
+				C46F23F726ABC24200654E78 /* ModelDataHandler.swift */,
+				C46F241826AC06FF00654E78 /* OCRDataHandler.swift */,
+			);
+			path = "Data Handler";
+			sourceTree = "<group>";
+		};
+		C46F23F926ABC24D00654E78 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C46F23FA26ABC24D00654E78 /* UIColorExtension.swift */,
+				C46F23FB26ABC24D00654E78 /* CVPixelBufferExtension.swift */,
+				C46F23FC26ABC24D00654E78 /* StringExtension.swift */,
+			);
+			name = Extensions;
+			path = "credit-card-ocr-demo/Extensions";
+			sourceTree = SOURCE_ROOT;
+		};
+		C46F240126ABC2BC00654E78 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C46F240226ABC2BC00654E78 /* label.txt */,
+				C46F240326ABC2BC00654E78 /* detect_metadata.tflite */,
+				C46F240426ABC2BC00654E78 /* mobilenet_quant_v1_224.tflite */,
+				C46F240526ABC2BC00654E78 /* model_det0.tflite */,
+				C46F240626ABC2BC00654E78 /* labelmap.txt */,
+				C46F240726ABC2BC00654E78 /* detect.tflite */,
+				C46F240826ABC2BC00654E78 /* model.tflite */,
+				C46F241626AC06DA00654E78 /* lite-model_keras-ocr_float16_2.tflite */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -135,6 +245,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C46F23ED26ABC0C700654E78 /* Build configuration list for PBXNativeTarget "credit-card-ocr-demo" */;
 			buildPhases = (
+				CA8C103520A6BF0DE0F1E29B /* [CP] Check Pods Manifest.lock */,
 				C46F23BF26ABC0C500654E78 /* Sources */,
 				C46F23C026ABC0C500654E78 /* Frameworks */,
 				C46F23C126ABC0C500654E78 /* Resources */,
@@ -152,6 +263,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C46F23F026ABC0C700654E78 /* Build configuration list for PBXNativeTarget "credit-card-ocr-demoTests" */;
 			buildPhases = (
+				A105EDACE3A00AAE97CA9F52 /* [CP] Check Pods Manifest.lock */,
 				C46F23D526ABC0C700654E78 /* Sources */,
 				C46F23D626ABC0C700654E78 /* Frameworks */,
 				C46F23D726ABC0C700654E78 /* Resources */,
@@ -170,6 +282,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C46F23F326ABC0C700654E78 /* Build configuration list for PBXNativeTarget "credit-card-ocr-demoUITests" */;
 			buildPhases = (
+				4D7DBA3B8030B1D11A3D4182 /* [CP] Check Pods Manifest.lock */,
 				C46F23E026ABC0C700654E78 /* Sources */,
 				C46F23E126ABC0C700654E78 /* Frameworks */,
 				C46F23E226ABC0C700654E78 /* Resources */,
@@ -231,9 +344,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C46F240D26ABC2BC00654E78 /* labelmap.txt in Resources */,
+				C46F240C26ABC2BC00654E78 /* model_det0.tflite in Resources */,
 				C46F23D326ABC0C700654E78 /* LaunchScreen.storyboard in Resources */,
+				C46F240E26ABC2BC00654E78 /* detect.tflite in Resources */,
+				C46F240B26ABC2BC00654E78 /* mobilenet_quant_v1_224.tflite in Resources */,
+				C46F241726AC06DA00654E78 /* lite-model_keras-ocr_float16_2.tflite in Resources */,
+				C46F240F26ABC2BC00654E78 /* model.tflite in Resources */,
+				C46F240A26ABC2BC00654E78 /* detect_metadata.tflite in Resources */,
 				C46F23D026ABC0C700654E78 /* Assets.xcassets in Resources */,
 				C46F23CE26ABC0C500654E78 /* Main.storyboard in Resources */,
+				C46F240926ABC2BC00654E78 /* label.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,14 +374,90 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		4D7DBA3B8030B1D11A3D4182 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-credit-card-ocr-demo-credit-card-ocr-demoUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A105EDACE3A00AAE97CA9F52 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-credit-card-ocr-demoTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CA8C103520A6BF0DE0F1E29B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-credit-card-ocr-demo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		C46F23BF26ABC0C500654E78 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				C46F23CB26ABC0C500654E78 /* ViewController.swift in Sources */,
+				C46F241326ABCA8000654E78 /* OverlayView.swift in Sources */,
+				C46F241526ABCCAB00654E78 /* PreviewView.swift in Sources */,
+				C46F23FF26ABC24D00654E78 /* StringExtension.swift in Sources */,
 				C46F23C726ABC0C500654E78 /* AppDelegate.swift in Sources */,
+				C46F241926AC06FF00654E78 /* OCRDataHandler.swift in Sources */,
+				C46F23FD26ABC24D00654E78 /* UIColorExtension.swift in Sources */,
+				C46F23F826ABC24200654E78 /* ModelDataHandler.swift in Sources */,
 				C46F23C926ABC0C500654E78 /* SceneDelegate.swift in Sources */,
+				C46F23FE26ABC24D00654E78 /* CVPixelBufferExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -433,6 +630,7 @@
 		};
 		C46F23EE26ABC0C700654E78 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6852CD578E56D94BE2479E90 /* Pods-credit-card-ocr-demo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -452,6 +650,7 @@
 		};
 		C46F23EF26ABC0C700654E78 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B4947BC5B9709ABE6352A028 /* Pods-credit-card-ocr-demo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -471,6 +670,7 @@
 		};
 		C46F23F126ABC0C700654E78 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DB30DF5D4B177FC6FEA220C2 /* Pods-credit-card-ocr-demoTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -493,6 +693,7 @@
 		};
 		C46F23F226ABC0C700654E78 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 114A11FC6E8399440AD4E1D1 /* Pods-credit-card-ocr-demoTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -515,6 +716,7 @@
 		};
 		C46F23F426ABC0C700654E78 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 585606979D458FF0E59A2104 /* Pods-credit-card-ocr-demo-credit-card-ocr-demoUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -535,6 +737,7 @@
 		};
 		C46F23F526ABC0C700654E78 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 019DC662727D5C662282A20B /* Pods-credit-card-ocr-demo-credit-card-ocr-demoUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
