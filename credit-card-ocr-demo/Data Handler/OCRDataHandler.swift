@@ -13,17 +13,12 @@ import Accelerate
 /// Stores results for a particular frame that was successfully run through the `Interpreter`.
 struct OCRResult {
   let inferenceTime: Double
-  let inferences: [Inference]
-}
-
-/// Stores one formatted inference.
-struct OCRInference {
-  
+    let inference: String
 }
 
 /// Information about the MobileNet SSD model.
 enum OCRModel {
-  static let modelInfo: FileInfo = (name: "lite-model_keras-ocr_float16_2", extension: "tflite")
+  static let modelInfo: FileInfo = (name: "ocr_int8", extension: "tflite")
 }
 
 /// This class handles all data preprocessing and makes calls to run inference on a given frame
@@ -38,7 +33,7 @@ class OCRDataHandler: NSObject {
     
   // MARK: Model parameters
   let batchSize = 1
-  let inputChannels = 3
+  let inputChannels = 1
   let inputWidth = 200
   let inputHeight = 31
 
@@ -49,8 +44,11 @@ class OCRDataHandler: NSObject {
   // MARK: Private properties
   private var labels: [String] = []
 
+    // MARK: Label
+    private let digitList: [String] = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+    
   /// TensorFlow Lite `Interpreter` object for performing inference on a given model.
-  private var interpreter: Interpreter
+  var interpreter: Interpreter
 
   private let bgraPixel = (channels: 4, alphaComponent: 3, lastBgrComponent: 2)
   private let rgbPixelChannels = 3
@@ -122,16 +120,16 @@ class OCRDataHandler: NSObject {
       return nil
     }
     
+    // scale image to desired size without cropping anything
+    
+    
     let interval: TimeInterval
-//    let outputBoundingBox: Tensor
-//    let outputClasses: Tensor
-//    let outputScores: Tensor
-//    let outputCount: Tensor
+    let outputTensor: Tensor
     do {
       let inputTensor = try interpreter.input(at: 0)
 
-      // Remove the alpha component from the image buffer to get the RGB data.
-      guard let rgbData = rgbDataFromBuffer(
+      // Convert to grayscale data.
+      guard let grayscaleData = grayscaleDataFromBuffer(
         scaledPixelBuffer,
         byteCount: batchSize * inputWidth * inputHeight * inputChannels,
         isModelQuantized: inputTensor.dataType == .uInt8
@@ -141,57 +139,50 @@ class OCRDataHandler: NSObject {
       }
 
       // Copy the RGB data to the input `Tensor`.
-      try interpreter.copy(rgbData, toInputAt: 0)
+      try interpreter.copy(grayscaleData, toInputAt: 0)
 
       // Run inference by invoking the `Interpreter`.
       let startDate = Date()
       try interpreter.invoke()
       interval = Date().timeIntervalSince(startDate) * 1000
 
-        let output = try interpreter.output(at: 0)
-        print(output)
-//      outputBoundingBox = try interpreter.output(at: 0)
-//      outputClasses = try interpreter.output(at: 1)
-//      outputScores = try interpreter.output(at: 2)
-//      outputCount = try interpreter.output(at: 3)
+        outputTensor = try interpreter.output(at: 0)
+        let collectedData = [Int](unsafeData: outputTensor.data) ?? []
+        print(collectedData)
     } catch let error {
       print("Failed to invoke the interpreter with error: \(error.localizedDescription)")
       return nil
     }
 
-    // Formats the results
-//    let resultArray = formatResults(
-//      boundingBox: [Float](unsafeData: outputBoundingBox.data) ?? [],
-//      outputClasses: [Float](unsafeData: outputClasses.data) ?? [],
-//      outputScores: [Float](unsafeData: outputScores.data) ?? [],
-//      outputCount: Int(([Float](unsafeData: outputCount.data) ?? [0])[0]),
-//      width: CGFloat(imageWidth),
-//      height: CGFloat(imageHeight)
-//    )
+    // Formats the results // Returns the inference time and inferences
+    let inferenceString: String = getResult(tensorOutputData: [Int](unsafeData: outputTensor.data) ?? [])
 
-    // Returns the inference time and inferences
-//    let result = Result(inferenceTime: interval, inferences: resultArray)
-//    return result
-    return nil
+    return OCRResult(inferenceTime: interval, inference: inferenceString)
   }
 
   /// Filters out all the results with confidence score < threshold and returns the top N results
   /// sorted in descending order.
-  func formatResults(boundingBox: [Float], outputClasses: [Float], outputScores: [Float], outputCount: Int, width: CGFloat, height: CGFloat) -> [OCRInference]?{
-    return nil
+    func getResult(tensorOutputData: [Int]) -> String{
+        var inferenceString: String = ""
+        for index in tensorOutputData {
+            if index != -1 && index < self.digitList.count && index >= 0 {
+                inferenceString += self.digitList[index]
+            }
+        }
+        return inferenceString
   }
 
     /// Returns the RGB data representation of the given image buffer with the specified `byteCount`.
     ///
     /// - Parameters
-    ///   - buffer: The BGRA pixel buffer to convert to RGB data.
-    ///   - byteCount: The expected byte count for the RGB data calculated using the values that the
+    ///   - buffer: The ARGB pixel buffer to convert to grayscale data.
+    ///   - byteCount: The expected byte count for the grayscale data calculated using the values that the
     ///       model was trained on: `batchSize * imageWidth * imageHeight * componentsCount`.
     ///   - isModelQuantized: Whether the model is quantized (i.e. fixed point values rather than
     ///       floating point values).
-    /// - Returns: The RGB data representation of the image buffer or `nil` if the buffer could not be
+    /// - Returns: The grayscale data representation of the image buffer or `nil` if the buffer could not be
     ///     converted.
-    func rgbDataFromBuffer(
+    func grayscaleDataFromBuffer(
       _ buffer: CVPixelBuffer,
       byteCount: Int,
       isModelQuantized: Bool
@@ -203,11 +194,25 @@ class OCRDataHandler: NSObject {
       guard let sourceData = CVPixelBufferGetBaseAddress(buffer) else {
         return nil
       }
-      
+        
+        // grayscale matrices and constance
+        let redCoefficient: Float = 0.2126
+        let greenCoefficient: Float = 0.7152
+        let blueCoefficient: Float = 0.0722
+        let divisor: Int32 = 0x1000
+        let fDivisor = Float(divisor)
+        var coefficientsMatrix = [
+            Int16(redCoefficient * fDivisor),
+            Int16(greenCoefficient * fDivisor),
+            Int16(blueCoefficient * fDivisor)
+        ]
+        let preBias: [Int16] = [0, 0, 0, 0]
+        let postBias: Int32 = 0
+        //
       let width = CVPixelBufferGetWidth(buffer)
       let height = CVPixelBufferGetHeight(buffer)
       let sourceBytesPerRow = CVPixelBufferGetBytesPerRow(buffer)
-      let destinationChannelCount = 3
+      let destinationChannelCount = 1
       let destinationBytesPerRow = destinationChannelCount * width
       
       var sourceBuffer = vImage_Buffer(data: sourceData,
@@ -229,11 +234,14 @@ class OCRDataHandler: NSObject {
                                             width: vImagePixelCount(width),
                                             rowBytes: destinationBytesPerRow)
       
-      if (CVPixelBufferGetPixelFormatType(buffer) == kCVPixelFormatType_32BGRA){
-        vImageConvert_BGRA8888toRGB888(&sourceBuffer, &destinationBuffer, UInt32(kvImageNoFlags))
-      } else if (CVPixelBufferGetPixelFormatType(buffer) == kCVPixelFormatType_32ARGB) {
-        vImageConvert_ARGB8888toRGB888(&sourceBuffer, &destinationBuffer, UInt32(kvImageNoFlags))
-      }
+//      if (CVPixelBufferGetPixelFormatType(buffer) == kCVPixelFormatType_32BGRA){
+//        vImageConvert_BGRA8888toRGB888(&sourceBuffer, &destinationBuffer, UInt32(kvImageNoFlags))
+//      } else if (CVPixelBufferGetPixelFormatType(buffer) == kCVPixelFormatType_32ARGB) {
+//        vImageConvert_ARGB8888toRGB888(&sourceBuffer, &destinationBuffer, UInt32(kvImageNoFlags))
+//      }
+        
+        vImageMatrixMultiply_ARGB8888ToPlanar8(&sourceBuffer, &destinationBuffer, &coefficientsMatrix, divisor, preBias, postBias, vImage_Flags(kvImageNoFlags))
+        
 
       let byteData = Data(bytes: destinationBuffer.data, count: destinationBuffer.rowBytes * height)
       if isModelQuantized {

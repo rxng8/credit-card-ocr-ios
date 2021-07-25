@@ -341,6 +341,72 @@ extension ViewController {
         return newPixelBuffer
     }
     
+    func convertToGrayscale(_ pixelBuffer: CVPixelBuffer) -> CGImage? {
+        
+        // constants
+        let redCoefficient: Float = 0.2126
+        let greenCoefficient: Float = 0.7152
+        let blueCoefficient: Float = 0.0722
+        let divisor: Int32 = 0x1000
+        let fDivisor = Float(divisor)
+
+        var coefficientsMatrix = [
+            Int16(redCoefficient * fDivisor),
+            Int16(greenCoefficient * fDivisor),
+            Int16(blueCoefficient * fDivisor)
+        ]
+        let preBias: [Int16] = [0, 0, 0, 0]
+        let postBias: Int32 = 0
+        
+        // Lock
+        CVPixelBufferLockBaseAddress(pixelBuffer, CVPixelBufferLockFlags.readOnly)
+        
+        // define source
+        let width = CVPixelBufferGetWidth(pixelBuffer)
+        let height = CVPixelBufferGetHeight(pixelBuffer)
+        guard let sourceData = CVPixelBufferGetBaseAddress(pixelBuffer) else {
+          return nil
+        }
+        let rowBytes = CVPixelBufferGetBytesPerRow(pixelBuffer)
+        var sourceBuffer = vImage_Buffer(data: sourceData, height: vImagePixelCount(height), width: vImagePixelCount(width), rowBytes: rowBytes)
+        
+        // define destination
+        let destinationChannelCount = 1
+        let destinationRowBytes = destinationChannelCount * width
+        guard let destinationData = malloc(height * destinationRowBytes) else {
+          print("Error: out of memory")
+          return nil
+        }
+        defer {
+          free(destinationData)
+        }
+        var destinationBuffer = vImage_Buffer(data: destinationData, height: vImagePixelCount(height), width: vImagePixelCount(width), rowBytes: destinationRowBytes)
+        
+        vImageMatrixMultiply_ARGB8888ToPlanar8(&sourceBuffer, &destinationBuffer, &coefficientsMatrix, divisor, preBias, postBias, vImage_Flags(kvImageNoFlags))
+        
+        
+        CVPixelBufferUnlockBaseAddress(pixelBuffer, CVPixelBufferLockFlags.readOnly)
+        
+        // create core graphic image
+        guard let monoFormat = vImage_CGImageFormat(
+            bitsPerComponent: 8,
+            bitsPerPixel: 8,
+            colorSpace: CGColorSpaceCreateDeviceGray(),
+            bitmapInfo: CGBitmapInfo(rawValue: CGImageAlphaInfo.none.rawValue),
+            renderingIntent: .defaultIntent) else {
+                return nil
+        }
+        let result = try? destinationBuffer.createCGImage(format: monoFormat)
+//        if let result = result {
+//            imageView.image = UIImage(cgImage: result)
+//        }
+        // MARK: TODO: create cv image buffer from cv buffer?
+//        let status = CVPixelBufferCreateWithBytes(kCFAllocatorDefault, Int(pixelWidth!), Int(pixelHeight!), kCVPixelFormatType_32BGRA, &addressPoint[start], Int(rowBytes), nil, nil, options as CFDictionary, &newPixelBuffer)
+//        if (status != 0) {
+//            return nil;
+//        }
+        return result
+    }
     
     /** This method runs the live camera pixelBuffer through tensorFlow to get the result.
      */
@@ -388,27 +454,35 @@ extension ViewController {
                 let croppedPixelBuffer = self.resizePixelBuffer(pixelBuffer, rect: convertedRect, superViewSize: CGSize(width: self.croppedRect!.width, height: self.croppedRect!.height))
                 let newciimage = CIImage(cvImageBuffer: croppedPixelBuffer!)
                 
-                // Process crnn model here!
-                let ocrResult = self.ocrDataHandler?.runModel(onFrame: croppedPixelBuffer!)
-                
                 // Debug
+                // grayscaleBuffer
+                let grayscaledcgimg = self.convertToGrayscale(croppedPixelBuffer!)
+                
+                // scaled the cropped buffer
+                let scaledSize = CGSize(width: self.ocrDataHandler!.inputWidth, height: self.ocrDataHandler!.inputHeight)
+                let scaledPixelBuffer = croppedPixelBuffer!.resized(to: scaledSize)
+                let scaledPixelBufferci = CIImage(cvPixelBuffer: scaledPixelBuffer!)
                 
                 // Put image to image debug view
                 DispatchQueue.main.async {
-                    let newui = UIImage(ciImage: newciimage)
+//                    let newui = UIImage(cgImage: grayscaledcgimg!)
+                    let newui = UIImage(ciImage: scaledPixelBufferci)
 //                    print("[meowRect] \(meowRect)")
 //                    print("[newuiimage size] \(newui.size)")
                     self.pixelDebugView.image = newui
                 }
+                
+                // Process crnn model here!
+                let ocrResult = self.ocrDataHandler?.runModel(onFrame: croppedPixelBuffer!)
+                print(ocrResult)
+                
+                
             } else {
                 // Debug
                 DispatchQueue.main.async {
                     self.pixelDebugView.image = nil
                 }
             }
-            
-            
-            
         }
     }
     

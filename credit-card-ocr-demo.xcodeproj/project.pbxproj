@@ -31,8 +31,10 @@
 		C46F240F26ABC2BC00654E78 /* model.tflite in Resources */ = {isa = PBXBuildFile; fileRef = C46F240826ABC2BC00654E78 /* model.tflite */; };
 		C46F241326ABCA8000654E78 /* OverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46F241226ABCA8000654E78 /* OverlayView.swift */; };
 		C46F241526ABCCAB00654E78 /* PreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46F241426ABCCAB00654E78 /* PreviewView.swift */; };
-		C46F241726AC06DA00654E78 /* lite-model_keras-ocr_float16_2.tflite in Resources */ = {isa = PBXBuildFile; fileRef = C46F241626AC06DA00654E78 /* lite-model_keras-ocr_float16_2.tflite */; };
+		C46F241726AC06DA00654E78 /* ocrmodel.tflite in Resources */ = {isa = PBXBuildFile; fileRef = C46F241626AC06DA00654E78 /* ocrmodel.tflite */; };
 		C46F241926AC06FF00654E78 /* OCRDataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46F241826AC06FF00654E78 /* OCRDataHandler.swift */; };
+		C46F241B26AC75A200654E78 /* keras-ocrr.tflite in Resources */ = {isa = PBXBuildFile; fileRef = C46F241A26AC75A200654E78 /* keras-ocrr.tflite */; };
+		C46F241D26AC788000654E78 /* ocr_int8.tflite in Resources */ = {isa = PBXBuildFile; fileRef = C46F241C26AC788000654E78 /* ocr_int8.tflite */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,8 +89,10 @@
 		C46F240826ABC2BC00654E78 /* model.tflite */ = {isa = PBXFileReference; lastKnownFileType = file; path = model.tflite; sourceTree = "<group>"; };
 		C46F241226ABCA8000654E78 /* OverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayView.swift; sourceTree = "<group>"; };
 		C46F241426ABCCAB00654E78 /* PreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewView.swift; sourceTree = "<group>"; };
-		C46F241626AC06DA00654E78 /* lite-model_keras-ocr_float16_2.tflite */ = {isa = PBXFileReference; lastKnownFileType = file; path = "lite-model_keras-ocr_float16_2.tflite"; sourceTree = "<group>"; };
+		C46F241626AC06DA00654E78 /* ocrmodel.tflite */ = {isa = PBXFileReference; lastKnownFileType = file; path = ocrmodel.tflite; sourceTree = "<group>"; };
 		C46F241826AC06FF00654E78 /* OCRDataHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCRDataHandler.swift; sourceTree = "<group>"; };
+		C46F241A26AC75A200654E78 /* keras-ocrr.tflite */ = {isa = PBXFileReference; lastKnownFileType = file; path = "keras-ocrr.tflite"; sourceTree = "<group>"; };
+		C46F241C26AC788000654E78 /* ocr_int8.tflite */ = {isa = PBXFileReference; lastKnownFileType = file; path = ocr_int8.tflite; sourceTree = "<group>"; };
 		DB30DF5D4B177FC6FEA220C2 /* Pods-credit-card-ocr-demoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-credit-card-ocr-demoTests.debug.xcconfig"; path = "Target Support Files/Pods-credit-card-ocr-demoTests/Pods-credit-card-ocr-demoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		EEB212E91D3DEBB3EF579E53 /* Pods_credit_card_ocr_demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_credit_card_ocr_demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -233,7 +237,9 @@
 				C46F240626ABC2BC00654E78 /* labelmap.txt */,
 				C46F240726ABC2BC00654E78 /* detect.tflite */,
 				C46F240826ABC2BC00654E78 /* model.tflite */,
-				C46F241626AC06DA00654E78 /* lite-model_keras-ocr_float16_2.tflite */,
+				C46F241626AC06DA00654E78 /* ocrmodel.tflite */,
+				C46F241A26AC75A200654E78 /* keras-ocrr.tflite */,
+				C46F241C26AC788000654E78 /* ocr_int8.tflite */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -344,12 +350,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C46F241D26AC788000654E78 /* ocr_int8.tflite in Resources */,
+				C46F241B26AC75A200654E78 /* keras-ocrr.tflite in Resources */,
 				C46F240D26ABC2BC00654E78 /* labelmap.txt in Resources */,
 				C46F240C26ABC2BC00654E78 /* model_det0.tflite in Resources */,
 				C46F23D326ABC0C700654E78 /* LaunchScreen.storyboard in Resources */,
 				C46F240E26ABC2BC00654E78 /* detect.tflite in Resources */,
 				C46F240B26ABC2BC00654E78 /* mobilenet_quant_v1_224.tflite in Resources */,
-				C46F241726AC06DA00654E78 /* lite-model_keras-ocr_float16_2.tflite in Resources */,
+				C46F241726AC06DA00654E78 /* ocrmodel.tflite in Resources */,
 				C46F240F26ABC2BC00654E78 /* model.tflite in Resources */,
 				C46F240A26ABC2BC00654E78 /* detect_metadata.tflite in Resources */,
 				C46F23D026ABC0C700654E78 /* Assets.xcassets in Resources */,
@@ -632,6 +640,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6852CD578E56D94BE2479E90 /* Pods-credit-card-ocr-demo.debug.xcconfig */;
 			buildSettings = {
+				ADDITIONAL_SDKS = "";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -640,6 +649,21 @@
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"c++\"",
+					"-framework",
+					"\"TensorFlowLite\"",
+					"-framework",
+					"\"TensorFlowLiteC\"",
+					"-framework",
+					"\"TensorFlowLiteSelectTfOps\"",
+					"-weak_framework",
+					"\"CoreML\"",
+					"-force_load",
+					"$(SRCROOT)/Pods/TensorFlowLiteSelectTfOps/Frameworks/TensorFlowLiteSelectTfOps.framework/TensorFlowLiteSelectTfOps",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.roxan.tech.credit-card-ocr-demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -652,6 +676,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B4947BC5B9709ABE6352A028 /* Pods-credit-card-ocr-demo.release.xcconfig */;
 			buildSettings = {
+				ADDITIONAL_SDKS = "";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -660,6 +685,21 @@
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"c++\"",
+					"-framework",
+					"\"TensorFlowLite\"",
+					"-framework",
+					"\"TensorFlowLiteC\"",
+					"-framework",
+					"\"TensorFlowLiteSelectTfOps\"",
+					"-weak_framework",
+					"\"CoreML\"",
+					"-force_load",
+					"$(SRCROOT)/Pods/TensorFlowLiteSelectTfOps/Frameworks/TensorFlowLiteSelectTfOps.framework/TensorFlowLiteSelectTfOps",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.roxan.tech.credit-card-ocr-demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";

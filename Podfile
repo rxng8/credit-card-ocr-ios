@@ -6,12 +6,14 @@ target 'credit-card-ocr-demo' do
   use_frameworks!
 
   # Pods for credit-card-ocr-demo
-  pod 'TensorFlowLiteSwift', '~> 2.0.0'
+  # pod 'TensorFlowLiteSwift', '~> 2.0.0'
+  pod 'TensorFlowLiteSwift', '~> 0.0.1-nightly', :subspecs => ['CoreML', 'Metal']
   # Require for pure tensorflow ops
   # https://www.tensorflow.org/lite/guide/ops_select
   # Remember to add linker flag
-  pod 'TensorFlowLiteSelectTfOps', '~> 0.0.1-nightly'
-  
+  # pod 'TensorFlowLiteSelectTfOps', '~> 0.0.1-nightly'
+  pod 'TensorFlowLiteSelectTfOps', '~> 2.5.0'
+
   target 'credit-card-ocr-demoTests' do
     inherit! :search_paths
     # Pods for testing
