@@ -25,6 +25,7 @@ class ViewController: UIViewController {
     private let collapseTransitionThreshold: CGFloat = -30.0
     private let expandTransitionThreshold: CGFloat = 30.0
     private let delayBetweenInferencesMs: Double = 100
+    private let delayBetweenDigitInferencesMs: Double = 200
     
     // MARK: Instance Variables
     // Holds the results at any time
@@ -32,12 +33,19 @@ class ViewController: UIViewController {
     private var initialBottomSpace: CGFloat = 0.0
     private var previousInferenceTimeMs: TimeInterval = Date.distantPast.timeIntervalSince1970 * 1000
     
+    private var previousDigitInferenceTimeMs: TimeInterval = Date.distantPast.timeIntervalSince1970 * 1000
+    
+    private var digitDetectorResult: DigitResult?
+    
     // MARK: Handles all data preprocessing and makes calls to run inference through the `Interpreter`.
     private var modelDataHandler: ModelDataHandler? =
         ModelDataHandler(modelFileInfo: MobileNetSSD.modelInfo, labelsFileInfo: MobileNetSSD.labelsInfo)
     
     // MARK: OCR Data handler
     private var ocrDataHandler: OCRDataHandler? = OCRDataHandler(modelFileInfo: OCRModel.modelInfo)
+    
+    // MARK: Digit model data handler. efficiectdet
+    private var digitModelDataHandler: DigitModelDataHandler? = DigitModelDataHandler(modelFileInfo: DigitModel.modelInfo, labelsFileInfo: DigitModel.labelsInfo)
     
     // Others
     let captureSession = AVCaptureSession()
@@ -277,7 +285,7 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
         //        let newPixelBuffer = resizePixelBuffer(imagePixelBuffer, rect: CGRect(x: 0, y: 500, width: 1080, height: 600))
         let croppedPixelBuffer = resizePixelBuffer(imagePixelBuffer, rect: croppedRect!, superViewSize: self.previewViewSize!)
         
-        let newciimage = CIImage(cvImageBuffer: croppedPixelBuffer!)
+//        let newciimage = CIImage(cvImageBuffer: croppedPixelBuffer!)
         
         // Put image to image debug view
 //        DispatchQueue.main.async {
@@ -416,7 +424,7 @@ extension ViewController {
         
         let currentTimeMs = Date().timeIntervalSince1970 * 1000
         
-        guard  (currentTimeMs - previousInferenceTimeMs) >= delayBetweenInferencesMs else {
+        guard (currentTimeMs - previousInferenceTimeMs) >= delayBetweenInferencesMs else {
             return
         }
         
@@ -431,7 +439,7 @@ extension ViewController {
         let width = CVPixelBufferGetWidth(pixelBuffer)
         let height = CVPixelBufferGetHeight(pixelBuffer)
         
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [self] in
             
             var inferenceTime: Double = 0
             if let resultInferenceTime = self.detectorResult?.inferenceTime {
@@ -439,7 +447,8 @@ extension ViewController {
             }
             
             // Draws the bounding boxes and displays class names and confidence scores.
-            self.drawAfterPerformingCalculations(onInferences: displayResult.inferences, withImageSize: CGSize(width: CGFloat(width), height: CGFloat(height)))
+//            self.drawAfterPerformingCalculations(onInferences: displayResult.inferences, withImageSize: CGSize(width: CGFloat(width), height: CGFloat(height)))
+            self.drawAfterPerformingCalculations(onInferences: displayResult.inferences, displayName: "Loading...", withImageSize: CGSize(width: CGFloat(width), height: CGFloat(height)))
             
 //            print("[Result] \(self.result!)")
             
@@ -448,40 +457,81 @@ extension ViewController {
                 
                 let meowRect = self.detectorResult!.inferences[0].rect
                 
-                // Translates bounding box rect to current view.
-                var convertedRect = CGRect(x: meowRect.minX, y: meowRect.minY, width: meowRect.width * self.overlayView.bounds.size.width / CGFloat(width), height: meowRect.height * self.overlayView.bounds.size.height / CGFloat(height))
+                // Translates bounding box rect to current view. The size of the number line rect
+                let convertedRect = CGRect(x: meowRect.minX, y: meowRect.minY, width: meowRect.width * self.overlayView.bounds.size.width / CGFloat(width), height: meowRect.height * self.overlayView.bounds.size.height / CGFloat(height))
                     
                 let croppedPixelBuffer = self.resizePixelBuffer(pixelBuffer, rect: convertedRect, superViewSize: CGSize(width: self.croppedRect!.width, height: self.croppedRect!.height))
+                
+                let numberLineWidth = CVPixelBufferGetWidth(croppedPixelBuffer!)
+                let numberLineHeight = CVPixelBufferGetHeight(croppedPixelBuffer!)
+                
+                let paddedPixelBuffer = self.resizePixelBufferWithPad(croppedPixelBuffer!, cropX: 0, cropY: -(numberLineWidth - numberLineHeight) / 2, cropWidth: numberLineWidth, cropHeight: numberLineWidth, scaleWidth: 512, scaleHeight: 512)
+                
                 let newciimage = CIImage(cvImageBuffer: croppedPixelBuffer!)
                 
                 // Debug
                 // grayscaleBuffer
-                let grayscaledcgimg = self.convertToGrayscale(croppedPixelBuffer!)
+//                let grayscaledcgimg = self.convertToGrayscale(croppedPixelBuffer!)
                 
                 // scaled the cropped buffer
-                let scaledSize = CGSize(width: self.ocrDataHandler!.inputWidth, height: self.ocrDataHandler!.inputHeight)
-                let scaledPixelBuffer = croppedPixelBuffer!.resized(to: scaledSize)
-                let scaledPixelBufferci = CIImage(cvPixelBuffer: scaledPixelBuffer!)
+//                let scaledSize = CGSize(width: self.ocrDataHandler!.inputWidth, height: self.ocrDataHandler!.inputHeight)
+//                let scaledPixelBuffer = croppedPixelBuffer!.resized(to: scaledSize)
+//                let scaledPixelBufferci = CIImage(cvPixelBuffer: scaledPixelBuffer!)
                 
                 // Put image to image debug view
-                DispatchQueue.main.async {
-//                    let newui = UIImage(cgImage: grayscaledcgimg!)
-                    let newui = UIImage(ciImage: scaledPixelBufferci)
-//                    print("[meowRect] \(meowRect)")
-//                    print("[newuiimage size] \(newui.size)")
-                    self.pixelDebugView.image = newui
-                }
+//                DispatchQueue.main.async {
+//                    let newui = UIImage(ciImage: newciimage)
+////                    let newui = UIImage(ciImage: scaledPixelBufferci)
+////                    print("[meowRect] \(meowRect)")
+////                    print("[newuiimage size] \(newui.size)")
+//                    self.pixelDebugView.image = newui
+//                }
                 
                 // Process crnn model here!
-                let ocrResult = self.ocrDataHandler?.runModel(onFrame: croppedPixelBuffer!)
-                print(ocrResult)
+//                let ocrResult = self.ocrDataHandler?.runModel(onFrame: croppedPixelBuffer!)
+//                print(ocrResult)
+                
+                var resArray: [(String, CGFloat)] = []
+                
+                // process efficientdet
+                // time
+                let currentTimeMsDigit = Date().timeIntervalSince1970 * 1000
+                guard (currentTimeMsDigit - previousDigitInferenceTimeMs) >= delayBetweenDigitInferencesMs else {
+                    return
+                }
+                previousDigitInferenceTimeMs = currentTimeMsDigit
+                
+                digitDetectorResult = self.digitModelDataHandler?.runModel(onFrame: paddedPixelBuffer!)
+                guard let digitDisplayResult = digitDetectorResult else {
+                    return
+                }
+                for inferInstance in digitDetectorResult!.inferences {
+                    resArray.append((inferInstance.className, inferInstance.rect.minX))
+                }
+                
+                let sortedResArray = resArray.sorted(by: {$0.1 < $1.1 })
+                var resultString = ""
+                for obj in sortedResArray {
+                    resultString += obj.0
+                }
+                print(resultString)
+                
+                DispatchQueue.main.async {
+                    // Draws the bounding boxes and displays class names and confidence scores.
+//                    self.drawAfterPerformingCalculations(onDigitInferences: digitDisplayResult.inferences, superViewSize: convertedRect.size, withImageSize: CGSize(width: CGFloat(numberLineWidth), height: CGFloat(numberLineHeight)))
+                    self.drawAfterPerformingCalculations(onInferences: displayResult.inferences, displayName: resultString, withImageSize: CGSize(width: CGFloat(width), height: CGFloat(height)))
+                }
                 
                 
             } else {
                 // Debug
                 DispatchQueue.main.async {
                     self.pixelDebugView.image = nil
+                    // Draw nil on object overlay if it has not found the number line
+//                    self.drawAfterPerformingCalculations(onInferences: displayResult.inferences, withImageSize: CGSize(width: CGFloat(width), height: CGFloat(height)))
                 }
+                // Hands off drawing to the OverlayView
+                self.draw(objectOverlays: [])
             }
         }
     }
@@ -502,6 +552,8 @@ extension ViewController {
         
         for inference in inferences {
             
+//            print("number rect before trans: \(inference.rect)")
+            
             // Translates bounding box rect to current view.
             var convertedRect = inference.rect.applying(CGAffineTransform(scaleX: self.overlayView.bounds.size.width / imageSize.width, y: self.overlayView.bounds.size.height / imageSize.height))
             
@@ -521,8 +573,112 @@ extension ViewController {
                 convertedRect.size.width = self.overlayView.bounds.maxX - convertedRect.origin.x - self.edgeOffset
             }
             
+//            print("number rect: \(convertedRect)")
+            
             let confidenceValue = Int(inference.confidence * 100.0)
             let string = "\(inference.className)  (\(confidenceValue)%)"
+            
+            let size = string.size(usingFont: self.displayFont)
+            
+            let objectOverlay = ObjectOverlay(name: string, borderRect: convertedRect, nameStringSize: size, color: inference.displayColor, font: self.displayFont)
+            
+            objectOverlays.append(objectOverlay)
+        }
+        
+        // Hands off drawing to the OverlayView
+        self.draw(objectOverlays: objectOverlays)
+        
+    }
+    
+    /**
+     This method takes the results, translates the bounding box rects to the current view, draws the bounding boxes, classNames and confidence scores of inferences.
+     */
+    func drawAfterPerformingCalculations(onDigitInferences inferences: [DigitInference], superViewSize: CGSize, withImageSize imageSize:CGSize) {
+        
+        self.overlayView.objectOverlays = []
+        self.overlayView.setNeedsDisplay()
+        
+        guard !inferences.isEmpty else {
+            return
+        }
+        
+        var objectOverlays: [ObjectOverlay] = []
+        
+        for inference in inferences {
+//            print("digit Rect before trans: \(inference.rect)")
+            // Translates bounding box rect to current view.
+            var convertedRect = inference.rect.applying(CGAffineTransform(scaleX: superViewSize.width / imageSize.width, y: superViewSize.height / imageSize.height))
+            
+            print("digit Rect: \(convertedRect)")
+//            if convertedRect.origin.x < 0 {
+//                convertedRect.origin.x = self.edgeOffset
+//            }
+//
+//            if convertedRect.origin.y < 0 {
+//                convertedRect.origin.y = self.edgeOffset
+//            }
+//
+//            if convertedRect.maxY > self.overlayView.bounds.maxY {
+//                convertedRect.size.height = self.overlayView.bounds.maxY - convertedRect.origin.y - self.edgeOffset
+//            }
+//
+//            if convertedRect.maxX > self.overlayView.bounds.maxX {
+//                convertedRect.size.width = self.overlayView.bounds.maxX - convertedRect.origin.x - self.edgeOffset
+//            }
+            
+            let confidenceValue = Int(inference.confidence * 100.0)
+            let string = "\(inference.className)  (\(confidenceValue)%)"
+            
+            let size = string.size(usingFont: self.displayFont)
+            
+            let objectOverlay = ObjectOverlay(name: string, borderRect: convertedRect, nameStringSize: size, color: inference.displayColor, font: self.displayFont)
+            
+            objectOverlays.append(objectOverlay)
+        }
+        
+        // Hands off drawing to the OverlayView
+        self.draw(objectOverlays: objectOverlays)
+        
+    }
+    
+    func drawAfterPerformingCalculations(onInferences inferences: [Inference], displayName name: String, withImageSize imageSize:CGSize) {
+        
+        self.overlayView.objectOverlays = []
+        self.overlayView.setNeedsDisplay()
+        
+        guard !inferences.isEmpty else {
+            return
+        }
+        
+        var objectOverlays: [ObjectOverlay] = []
+        
+        for inference in inferences {
+            
+//            print("number rect before trans: \(inference.rect)")
+            
+            // Translates bounding box rect to current view.
+            var convertedRect = inference.rect.applying(CGAffineTransform(scaleX: self.overlayView.bounds.size.width / imageSize.width, y: self.overlayView.bounds.size.height / imageSize.height))
+            
+            if convertedRect.origin.x < 0 {
+                convertedRect.origin.x = self.edgeOffset
+            }
+            
+            if convertedRect.origin.y < 0 {
+                convertedRect.origin.y = self.edgeOffset
+            }
+            
+            if convertedRect.maxY > self.overlayView.bounds.maxY {
+                convertedRect.size.height = self.overlayView.bounds.maxY - convertedRect.origin.y - self.edgeOffset
+            }
+            
+            if convertedRect.maxX > self.overlayView.bounds.maxX {
+                convertedRect.size.width = self.overlayView.bounds.maxX - convertedRect.origin.x - self.edgeOffset
+            }
+            
+//            print("number rect: \(convertedRect)")
+            
+            let confidenceValue = Int(inference.confidence * 100.0)
+            let string = "\(name)"
             
             let size = string.size(usingFont: self.displayFont)
             
@@ -544,4 +700,123 @@ extension ViewController {
         self.overlayView.setNeedsDisplay()
     }
     
+}
+
+
+/**
+ resize extension. https://stackoverflow.com/a/53823222
+ */
+extension ViewController {
+    public func resizePixelBufferWithPad(_ srcPixelBuffer: CVPixelBuffer,
+                                  cropX: Int,
+                                  cropY: Int,
+                                  cropWidth: Int,
+                                  cropHeight: Int,
+                                  scaleWidth: Int,
+                                  scaleHeight: Int) -> CVPixelBuffer? {
+        let flags = CVPixelBufferLockFlags(rawValue: 0)
+        let pixelFormat = CVPixelBufferGetPixelFormatType(srcPixelBuffer)
+        guard kCVReturnSuccess == CVPixelBufferLockBaseAddress(srcPixelBuffer, flags) else {
+            return nil
+        }
+        defer { CVPixelBufferUnlockBaseAddress(srcPixelBuffer, flags) }
+
+        guard let srcData = CVPixelBufferGetBaseAddress(srcPixelBuffer) else {
+            print("Error: could not get pixel buffer base address")
+            return nil
+        }
+
+        let srcHeight = CVPixelBufferGetHeight(srcPixelBuffer)
+        let srcWidth = CVPixelBufferGetWidth(srcPixelBuffer)
+        let srcBytesPerRow = CVPixelBufferGetBytesPerRow(srcPixelBuffer)
+        let offset = cropY * srcBytesPerRow + cropX * 4
+
+        var srcBuffer: vImage_Buffer!
+        var paddedSrcPixelBuffer: CVPixelBuffer!
+
+        if (cropX < 0 || cropY < 0 || cropX + cropWidth > srcWidth || cropY + cropHeight > srcHeight) {
+            let paddingLeft = abs(min(cropX, 0))
+            let paddingRight = max((cropX + cropWidth) - (srcWidth - 1), 0)
+            let paddingBottom = max((cropY + cropHeight) - (srcHeight - 1), 0)
+            let paddingTop = abs(min(cropY, 0))
+
+            let paddedHeight = paddingTop + srcHeight + paddingBottom
+            let paddedWidth = paddingLeft + srcWidth + paddingRight
+
+            guard kCVReturnSuccess == CVPixelBufferCreate(kCFAllocatorDefault, paddedWidth, paddedHeight, pixelFormat, nil, &paddedSrcPixelBuffer) else {
+                print("failed to allocate a new padded pixel buffer")
+                return nil
+            }
+
+            guard kCVReturnSuccess == CVPixelBufferLockBaseAddress(paddedSrcPixelBuffer, flags) else {
+                return nil
+            }
+
+            guard let paddedSrcData = CVPixelBufferGetBaseAddress(paddedSrcPixelBuffer) else {
+                print("Error: could not get padded pixel buffer base address")
+                return nil
+            }
+
+            let paddedBytesPerRow = CVPixelBufferGetBytesPerRow(paddedSrcPixelBuffer)
+            for yIndex in paddingTop..<srcHeight+paddingTop {
+                let dstRowStart = paddedSrcData.advanced(by: yIndex*paddedBytesPerRow).advanced(by: paddingLeft*4)
+                let srcRowStart = srcData.advanced(by: (yIndex - paddingTop)*srcBytesPerRow)
+                dstRowStart.copyMemory(from: srcRowStart, byteCount: srcBytesPerRow)
+            }
+
+            let paddedOffset = (cropY + paddingTop)*paddedBytesPerRow + (cropX + paddingLeft)*4
+            srcBuffer = vImage_Buffer(data: paddedSrcData.advanced(by: paddedOffset),
+                                      height: vImagePixelCount(cropHeight),
+                                      width: vImagePixelCount(cropWidth),
+                                      rowBytes: paddedBytesPerRow)
+
+        } else {
+            srcBuffer = vImage_Buffer(data: srcData.advanced(by: offset),
+                                      height: vImagePixelCount(cropHeight),
+                                      width: vImagePixelCount(cropWidth),
+                                      rowBytes: srcBytesPerRow)
+        }
+
+        let destBytesPerRow = scaleWidth*4
+        guard let destData = malloc(scaleHeight*destBytesPerRow) else {
+            print("Error: out of memory")
+            return nil
+        }
+        var destBuffer = vImage_Buffer(data: destData,
+                                       height: vImagePixelCount(scaleHeight),
+                                       width: vImagePixelCount(scaleWidth),
+                                       rowBytes: destBytesPerRow)
+
+        let vImageFlags: vImage_Flags = vImage_Flags(kvImageEdgeExtend)
+        let error = vImageScale_ARGB8888(&srcBuffer, &destBuffer, nil, vImageFlags)
+        if error != kvImageNoError {
+            print("Error:", error)
+            free(destData)
+            return nil
+        }
+
+        let releaseCallback: CVPixelBufferReleaseBytesCallback = { _, ptr in
+            if let ptr = ptr {
+                free(UnsafeMutableRawPointer(mutating: ptr))
+            }
+        }
+
+        var dstPixelBuffer: CVPixelBuffer?
+        let status = CVPixelBufferCreateWithBytes(nil, scaleWidth, scaleHeight,
+                                                  pixelFormat, destData,
+                                                  destBytesPerRow, releaseCallback,
+                                                  nil, nil, &dstPixelBuffer)
+        if status != kCVReturnSuccess {
+            print("Error: could not create new pixel buffer")
+            free(destData)
+            return nil
+        }
+
+        if paddedSrcPixelBuffer != nil {
+            CVPixelBufferUnlockBaseAddress(paddedSrcPixelBuffer, flags)
+        }
+
+
+        return dstPixelBuffer
+    }
 }

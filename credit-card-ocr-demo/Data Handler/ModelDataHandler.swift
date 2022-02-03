@@ -36,7 +36,7 @@ typealias FileInfo = (name: String, extension: String)
 
 /// Information about the MobileNet SSD model.
 enum MobileNetSSD {
-  static let modelInfo: FileInfo = (name: "model_det0", extension: "tflite")
+  static let modelInfo: FileInfo = (name: "model_det0_1", extension: "tflite")
   static let labelsInfo: FileInfo = (name: "label", extension: "txt")
 }
 

@@ -18,7 +18,7 @@ struct OCRResult {
 
 /// Information about the MobileNet SSD model.
 enum OCRModel {
-  static let modelInfo: FileInfo = (name: "ocr_int8", extension: "tflite")
+  static let modelInfo: FileInfo = (name: "ocr_float16", extension: "tflite")
 }
 
 /// This class handles all data preprocessing and makes calls to run inference on a given frame
@@ -148,7 +148,7 @@ class OCRDataHandler: NSObject {
 
         outputTensor = try interpreter.output(at: 0)
         let collectedData = [Int](unsafeData: outputTensor.data) ?? []
-        print(collectedData)
+//        print(collectedData)
     } catch let error {
       print("Failed to invoke the interpreter with error: \(error.localizedDescription)")
       return nil

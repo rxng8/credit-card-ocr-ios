@@ -10,6 +10,10 @@
 		214EF4CD4FEB4B739FCCD849 /* Pods_credit_card_ocr_demoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76F1B6317FE121FB8B6517E5 /* Pods_credit_card_ocr_demoTests.framework */; };
 		934F0006D6F56980DA5A7080 /* Pods_credit_card_ocr_demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB212E91D3DEBB3EF579E53 /* Pods_credit_card_ocr_demo.framework */; };
 		B7F020ADA08BB5F9A38BE054 /* Pods_credit_card_ocr_demo_credit_card_ocr_demoUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10F1E840C2F0D4315D4AF417 /* Pods_credit_card_ocr_demo_credit_card_ocr_demoUITests.framework */; };
+		C45077DA26B68B8200418FDD /* model_digit_det3_bs4_e150.tflite in Resources */ = {isa = PBXBuildFile; fileRef = C45077D926B68B8200418FDD /* model_digit_det3_bs4_e150.tflite */; };
+		C45077DC26B68EF100418FDD /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45077DB26B68EF100418FDD /* UIImageExtension.swift */; };
+		C45077DE26B6972400418FDD /* DigitModelDataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45077DD26B6972400418FDD /* DigitModelDataHandler.swift */; };
+		C45077E026B697FD00418FDD /* digit_label.txt in Resources */ = {isa = PBXBuildFile; fileRef = C45077DF26B697FD00418FDD /* digit_label.txt */; };
 		C46F23C726ABC0C500654E78 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46F23C626ABC0C500654E78 /* AppDelegate.swift */; };
 		C46F23C926ABC0C500654E78 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46F23C826ABC0C500654E78 /* SceneDelegate.swift */; };
 		C46F23CB26ABC0C500654E78 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46F23CA26ABC0C500654E78 /* ViewController.swift */; };
@@ -35,6 +39,9 @@
 		C46F241926AC06FF00654E78 /* OCRDataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46F241826AC06FF00654E78 /* OCRDataHandler.swift */; };
 		C46F241B26AC75A200654E78 /* keras-ocrr.tflite in Resources */ = {isa = PBXBuildFile; fileRef = C46F241A26AC75A200654E78 /* keras-ocrr.tflite */; };
 		C46F241D26AC788000654E78 /* ocr_int8.tflite in Resources */ = {isa = PBXBuildFile; fileRef = C46F241C26AC788000654E78 /* ocr_int8.tflite */; };
+		C471E3DD26AEF88F00E2176E /* ocr_float16.tflite in Resources */ = {isa = PBXBuildFile; fileRef = C471E3DC26AEF88F00E2176E /* ocr_float16.tflite */; };
+		C48FC45726B8EBA40046E98C /* model_digit_det3_bs4_e150_2.tflite in Resources */ = {isa = PBXBuildFile; fileRef = C48FC45626B8EBA40046E98C /* model_digit_det3_bs4_e150_2.tflite */; };
+		C4BBC71326AFFCC500D61031 /* model_det0_1.tflite in Resources */ = {isa = PBXBuildFile; fileRef = C4BBC71226AFFCC500D61031 /* model_det0_1.tflite */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +69,10 @@
 		6852CD578E56D94BE2479E90 /* Pods-credit-card-ocr-demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-credit-card-ocr-demo.debug.xcconfig"; path = "Target Support Files/Pods-credit-card-ocr-demo/Pods-credit-card-ocr-demo.debug.xcconfig"; sourceTree = "<group>"; };
 		76F1B6317FE121FB8B6517E5 /* Pods_credit_card_ocr_demoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_credit_card_ocr_demoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4947BC5B9709ABE6352A028 /* Pods-credit-card-ocr-demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-credit-card-ocr-demo.release.xcconfig"; path = "Target Support Files/Pods-credit-card-ocr-demo/Pods-credit-card-ocr-demo.release.xcconfig"; sourceTree = "<group>"; };
+		C45077D926B68B8200418FDD /* model_digit_det3_bs4_e150.tflite */ = {isa = PBXFileReference; lastKnownFileType = file; path = model_digit_det3_bs4_e150.tflite; sourceTree = "<group>"; };
+		C45077DB26B68EF100418FDD /* UIImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
+		C45077DD26B6972400418FDD /* DigitModelDataHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigitModelDataHandler.swift; sourceTree = "<group>"; };
+		C45077DF26B697FD00418FDD /* digit_label.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = digit_label.txt; sourceTree = "<group>"; };
 		C46F23C326ABC0C500654E78 /* credit-card-ocr-demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "credit-card-ocr-demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C46F23C626ABC0C500654E78 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C46F23C826ABC0C500654E78 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -93,6 +104,9 @@
 		C46F241826AC06FF00654E78 /* OCRDataHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCRDataHandler.swift; sourceTree = "<group>"; };
 		C46F241A26AC75A200654E78 /* keras-ocrr.tflite */ = {isa = PBXFileReference; lastKnownFileType = file; path = "keras-ocrr.tflite"; sourceTree = "<group>"; };
 		C46F241C26AC788000654E78 /* ocr_int8.tflite */ = {isa = PBXFileReference; lastKnownFileType = file; path = ocr_int8.tflite; sourceTree = "<group>"; };
+		C471E3DC26AEF88F00E2176E /* ocr_float16.tflite */ = {isa = PBXFileReference; lastKnownFileType = file; path = ocr_float16.tflite; sourceTree = "<group>"; };
+		C48FC45626B8EBA40046E98C /* model_digit_det3_bs4_e150_2.tflite */ = {isa = PBXFileReference; lastKnownFileType = file; path = model_digit_det3_bs4_e150_2.tflite; sourceTree = "<group>"; };
+		C4BBC71226AFFCC500D61031 /* model_det0_1.tflite */ = {isa = PBXFileReference; lastKnownFileType = file; path = model_det0_1.tflite; sourceTree = "<group>"; };
 		DB30DF5D4B177FC6FEA220C2 /* Pods-credit-card-ocr-demoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-credit-card-ocr-demoTests.debug.xcconfig"; path = "Target Support Files/Pods-credit-card-ocr-demoTests/Pods-credit-card-ocr-demoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		EEB212E91D3DEBB3EF579E53 /* Pods_credit_card_ocr_demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_credit_card_ocr_demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -212,6 +226,7 @@
 			children = (
 				C46F23F726ABC24200654E78 /* ModelDataHandler.swift */,
 				C46F241826AC06FF00654E78 /* OCRDataHandler.swift */,
+				C45077DD26B6972400418FDD /* DigitModelDataHandler.swift */,
 			);
 			path = "Data Handler";
 			sourceTree = "<group>";
@@ -222,6 +237,7 @@
 				C46F23FA26ABC24D00654E78 /* UIColorExtension.swift */,
 				C46F23FB26ABC24D00654E78 /* CVPixelBufferExtension.swift */,
 				C46F23FC26ABC24D00654E78 /* StringExtension.swift */,
+				C45077DB26B68EF100418FDD /* UIImageExtension.swift */,
 			);
 			name = Extensions;
 			path = "credit-card-ocr-demo/Extensions";
@@ -234,12 +250,17 @@
 				C46F240326ABC2BC00654E78 /* detect_metadata.tflite */,
 				C46F240426ABC2BC00654E78 /* mobilenet_quant_v1_224.tflite */,
 				C46F240526ABC2BC00654E78 /* model_det0.tflite */,
+				C4BBC71226AFFCC500D61031 /* model_det0_1.tflite */,
 				C46F240626ABC2BC00654E78 /* labelmap.txt */,
 				C46F240726ABC2BC00654E78 /* detect.tflite */,
 				C46F240826ABC2BC00654E78 /* model.tflite */,
 				C46F241626AC06DA00654E78 /* ocrmodel.tflite */,
 				C46F241A26AC75A200654E78 /* keras-ocrr.tflite */,
 				C46F241C26AC788000654E78 /* ocr_int8.tflite */,
+				C471E3DC26AEF88F00E2176E /* ocr_float16.tflite */,
+				C45077D926B68B8200418FDD /* model_digit_det3_bs4_e150.tflite */,
+				C48FC45626B8EBA40046E98C /* model_digit_det3_bs4_e150_2.tflite */,
+				C45077DF26B697FD00418FDD /* digit_label.txt */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -350,15 +371,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C45077E026B697FD00418FDD /* digit_label.txt in Resources */,
+				C45077DA26B68B8200418FDD /* model_digit_det3_bs4_e150.tflite in Resources */,
 				C46F241D26AC788000654E78 /* ocr_int8.tflite in Resources */,
 				C46F241B26AC75A200654E78 /* keras-ocrr.tflite in Resources */,
 				C46F240D26ABC2BC00654E78 /* labelmap.txt in Resources */,
 				C46F240C26ABC2BC00654E78 /* model_det0.tflite in Resources */,
+				C471E3DD26AEF88F00E2176E /* ocr_float16.tflite in Resources */,
 				C46F23D326ABC0C700654E78 /* LaunchScreen.storyboard in Resources */,
+				C4BBC71326AFFCC500D61031 /* model_det0_1.tflite in Resources */,
 				C46F240E26ABC2BC00654E78 /* detect.tflite in Resources */,
 				C46F240B26ABC2BC00654E78 /* mobilenet_quant_v1_224.tflite in Resources */,
 				C46F241726AC06DA00654E78 /* ocrmodel.tflite in Resources */,
 				C46F240F26ABC2BC00654E78 /* model.tflite in Resources */,
+				C48FC45726B8EBA40046E98C /* model_digit_det3_bs4_e150_2.tflite in Resources */,
 				C46F240A26ABC2BC00654E78 /* detect_metadata.tflite in Resources */,
 				C46F23D026ABC0C700654E78 /* Assets.xcassets in Resources */,
 				C46F23CE26ABC0C500654E78 /* Main.storyboard in Resources */,
@@ -460,6 +486,8 @@
 				C46F241326ABCA8000654E78 /* OverlayView.swift in Sources */,
 				C46F241526ABCCAB00654E78 /* PreviewView.swift in Sources */,
 				C46F23FF26ABC24D00654E78 /* StringExtension.swift in Sources */,
+				C45077DE26B6972400418FDD /* DigitModelDataHandler.swift in Sources */,
+				C45077DC26B68EF100418FDD /* UIImageExtension.swift in Sources */,
 				C46F23C726ABC0C500654E78 /* AppDelegate.swift in Sources */,
 				C46F241926AC06FF00654E78 /* OCRDataHandler.swift in Sources */,
 				C46F23FD26ABC24D00654E78 /* UIColorExtension.swift in Sources */,
